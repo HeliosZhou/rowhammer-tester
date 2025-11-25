@@ -19,5 +19,6 @@
         "./third_party/liteiclink",
         "./third_party/litescope",
         "./third_party/litex-boards"
-    ]
+    ],
+    "commentTranslate.hover.enabled": false
 }
