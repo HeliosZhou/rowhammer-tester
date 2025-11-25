@@ -6,8 +6,6 @@ __pycache__/
 /build/
 /venv/
 /prog/
-/third_party/
-/prebuilt/
 /firmware/
 
 # 忽略构建输出文件
@@ -17,7 +15,6 @@ dump.vcd
 sdram_init.py
 vivado.*
 riscv64-unknown-elf-gcc*
-doc/build
 
 # 忽略特定的大文件类型
 *.img
@@ -36,7 +33,26 @@ doc/build
 *.xpr
 *.cache/
 
-# 忽略所有编译库文件
+# 忽略编译库文件
 libc.a
 __libc.a
 _libc.a
+libbase.a
+libcompiler_rt.a
+libfatfs.a
+liblitedram.a
+libliteeth.a
+liblitesata.a
+liblitesdcard.a
+liblitespi.a
+
+# 忽略软件构建目录下的所有库文件
+**/software/**/*.a
+**/software/**/lib*.a
+
+# 保留重要的测试结果文件但忽略其他结果文件夹中的临时文件
+# rowhammer_tester/scripts/result/ 目录下的 .txt 文件会被保留
+
+
+
+
