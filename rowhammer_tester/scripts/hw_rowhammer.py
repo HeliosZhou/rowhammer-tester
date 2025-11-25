@@ -9,7 +9,7 @@ from collections import defaultdict
 from rowhammer_tester.gateware.payload_executor import Encoder, OpCode, Decoder
 from rowhammer_tester.scripts.utils import (
     hw_memset, hw_memtest, DRAMAddressConverter, litex_server, memwrite, RemoteClient,
-    setup_inverters)
+    setup_inverters, _progress)
 from rowhammer_tester.scripts.rowhammer import RowHammer, main
 
 ################################################################################
@@ -91,9 +91,19 @@ class HwRowHammer(RowHammer):
             mask = int(mask, 0)
         setup_inverters(self.wb, divisor, mask)
 
-        assert len(row_pairs) > 0, "No pairs to hammer"
         print('\nPreparing ...')
-        row_pattern = list(pattern_generator([row_pairs[0][0]]).values())[0]
+        # Only check for row_pairs if we're actually going to attack
+        if self.no_attack_time is None and len(row_pairs) == 0:
+            print("No pairs to hammer")
+            return {}
+            
+        row_pattern = None
+        if len(row_pairs) > 0:
+            row_pattern = list(pattern_generator([row_pairs[0][0]]).values())[0]
+        else:
+            # Use a default pattern when no row_pairs (e.g., for no_attack_time)
+            row_pattern = list(pattern_generator([0]).values())[0]
+            
         print('WARNING: only single word patterns supported, using: 0x{:08x}'.format(row_pattern))
         print('\nFilling memory with data ...')
         hw_memset(self.wb, 0x0, self.wb.mems.main_ram.size, [row_pattern])
@@ -112,17 +122,20 @@ class HwRowHammer(RowHammer):
             print('\nDisabling refresh ...')
             self.wb.regs.controller_settings_refresh.write(0)
 
-        print('\nRunning Rowhammer attacks ...')
-        for i, row_tuple in enumerate(row_pairs, start=1):
-            s = 'Iter {:{n}} / {:{n}}'.format(i, len(row_pairs), n=len(str(len(row_pairs))))
-            if self.payload_executor:
-                self.payload_executor_attack(read_count=read_count, row_tuple=row_tuple)
-            else:
-                if len(row_tuple) & (len(row_tuple) - 1) != 0:
-                    print("ERROR: BIST only supports power of 2 rows\n")
-                    return
+        if self.no_attack_time is not None:
+            self.no_attack_sleep()
+        else:
+            print('\nRunning Rowhammer attacks ...')
+            for i, row_tuple in enumerate(row_pairs, start=1):
+                s = 'Iter {:{n}} / {:{n}}'.format(i, len(row_pairs), n=len(str(len(row_pairs))))
+                if self.payload_executor:
+                    self.payload_executor_attack(read_count=read_count, row_tuple=row_tuple)
+                else:
+                    if len(row_tuple) & (len(row_tuple) - 1) != 0:
+                        print("ERROR: BIST only supports power of 2 rows\n")
+                        return
 
-                self.attack(row_tuple, read_count=read_count, progress_header=s)
+                    self.attack(row_tuple, read_count=read_count, progress_header=s)
 
         if self.no_refresh:
             print('\nReenabling refresh ...')

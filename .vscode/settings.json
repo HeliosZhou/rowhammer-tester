@@ -1,0 +1,23 @@
+{
+    "python.defaultInterpreterPath": "./.venv/bin/python",
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "none",
+        "reportUndefinedVariable": "none",
+        "reportUnknownMemberType": "none",
+        "reportUnknownArgumentType": "none",
+        "reportUnknownVariableType": "none"
+    },
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.diagnosticMode": "openFilesOnly",
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.extraPaths": [
+        "./third_party/migen",
+        "./third_party/litex", 
+        "./third_party/litedram",
+        "./third_party/liteeth",
+        "./third_party/liteiclink",
+        "./third_party/litescope",
+        "./third_party/litex-boards"
+    ]
+}

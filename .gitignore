@@ -2,10 +2,15 @@
 __pycache__/
 *.egg-info/
 
+# 忽略构建相关的大文件夹
 /build/
 /venv/
 /prog/
+/third_party/
+/prebuilt/
+/firmware/
 
+# 忽略构建输出文件
 csr.csv
 analyzer.csv
 dump.vcd
@@ -13,3 +18,25 @@ sdram_init.py
 vivado.*
 riscv64-unknown-elf-gcc*
 doc/build
+
+# 忽略特定的大文件类型
+*.img
+*.a
+*.rtd
+*.zip
+*.xsa
+*.vcd
+
+# 忽略 Vivado 相关临时文件
+.Xil/
+*.jou
+*.log
+*.rpt
+*.str
+*.xpr
+*.cache/
+
+# 忽略所有编译库文件
+libc.a
+__libc.a
+_libc.a

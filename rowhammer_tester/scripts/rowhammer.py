@@ -11,7 +11,7 @@ import os
 from pathlib import Path
 from rowhammer_tester.scripts.utils import (
     memfill, memcheck, memwrite, DRAMAddressConverter, litex_server, RemoteClient,
-    get_litedram_settings, get_generated_defs, execute_payload, read_ident)
+    get_litedram_settings, get_generated_defs, execute_payload, read_ident, _progress)
 from rowhammer_tester.scripts.playbook.lib import (generate_payload_from_row_list)
 
 ################################################################################
@@ -37,6 +37,7 @@ class RowHammer:
             no_refresh=False,
             verbose=False,
             payload_executor=False,
+            no_attack_time=None,
             data_inversion=False):
         for name, val in locals().items():
             setattr(self, name, val)
@@ -175,6 +176,16 @@ class RowHammer:
         expr = f'{val ^ exp:#0{len(bin(exp))}b}'
         return [i for i, c in enumerate(expr[2:]) if c == '1']
 
+    def no_attack_sleep(self):
+        sleep_time = self.no_attack_time / 1e9
+        print(f"\nSleeping for {sleep_time} s as `--no-attack-time` flag was used ...")
+
+        for slept in range(int(10 * sleep_time)):  # refresh every 0.1 s
+            time.sleep(0.1)
+            _progress((slept + 1) / 10, sleep_time, last=False, opt=f"Sleeping for {sleep_time} s")
+
+        print()
+
     def display_errors(self, row_errors, read_count, do_error_summary=False):
         # FIXME: add docstring
 
@@ -244,13 +255,16 @@ class RowHammer:
             print('\nDisabling refresh ...')
             self.wb.regs.controller_settings_refresh.write(0)
 
-        print('\nRunning Rowhammer attacks ...')
-        for i, row_tuple in enumerate(row_pairs, start=1):
-            s = 'Iter {:{n}} / {:{n}}'.format(i, len(row_pairs), n=len(str(len(row_pairs))))
-            if self.payload_executor:
-                self.payload_executor_attack(read_count=read_count, row_tuple=row_tuple)
-            else:
-                self.attack(row_tuple, read_count=read_count, progress_header=s)
+        if self.no_attack_time is not None:
+            self.no_attack_sleep()
+        else:
+            print('\nRunning Rowhammer attacks ...')
+            for i, row_tuple in enumerate(row_pairs, start=1):
+                s = 'Iter {:{n}} / {:{n}}'.format(i, len(row_pairs), n=len(str(len(row_pairs))))
+                if self.payload_executor:
+                    self.payload_executor_attack(read_count=read_count, row_tuple=row_tuple)
+                else:
+                    self.attack(row_tuple, read_count=read_count, progress_header=s)
 
         if self.no_refresh:
             print('\nReenabling refresh ...')
@@ -349,6 +363,8 @@ def main(row_hammer_cls):
         '--all-rows',
         action='store_true',
         help='Run whole test sequence on all rows. Optionally, set --row-jump and --start-row')
+    row_selector_group.add_argument(
+        '--no-attack-time', type=float, help="Don't attack. Instead sleep for provided nanoseconds")
     parser.add_argument(
         '--row-pair-distance',
         type=int,
@@ -436,6 +452,14 @@ def main(row_hammer_cls):
             return rng.randint(args.start_row, args.start_row + args.nrows)
 
         row_pairs = [(rand_row(), rand_row()) for i in range(args.nrows)]
+    elif args.no_attack_time is not None:
+        if args.no_attack_time < 0:
+            parser.error("No attack time can't be negative")
+        # For no_attack_time, we still need some dummy rows for pattern generation
+        row_pairs = [(0, 0)]  # dummy pair for pattern generation
+        # If nrows is not specified, set it to a reasonable default for memory checking
+        if args.nrows == 0:
+            args.nrows = 512  # Default to checking 512 rows
     else:
         parser.error("No operation specified")
 
@@ -461,6 +485,7 @@ def main(row_hammer_cls):
         verbose=args.verbose,
         no_refresh=args.no_refresh,
         payload_executor=args.payload_executor,
+        no_attack_time=args.no_attack_time,
         data_inversion=args.data_inversion,
     )
 
@@ -503,6 +528,15 @@ def main(row_hammer_cls):
                     "hammer_row_2": pair[1],
                     "errors_in_rows": err_in_rows
                 }
+        elif args.no_attack_time is not None:
+            # Run with the dummy row pair but the sleep functionality will be used
+            err_in_rows = row_hammer.run(
+                row_pairs=row_pairs, read_count=count, pattern_generator=pattern)
+            
+            row_hammer.err_summary[str(count)]["no_attack_sleep"] = {
+                "sleep_time_ns": args.no_attack_time,
+                "errors_in_rows": err_in_rows
+            }
         else:
             err_in_rows = row_hammer.run(
                 row_pairs=row_pairs, read_count=count, pattern_generator=pattern)

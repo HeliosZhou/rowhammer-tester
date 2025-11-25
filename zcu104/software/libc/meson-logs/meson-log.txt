@@ -1,0 +1,1024 @@
+Build started at 2025-11-25T10:46:14.444488
+Main binary: /home/hc/rowhammer-tester-ZCU104/venv/bin/python3
+Build Options: -Dmultilib=false -Dpicocrt=false -Datomic-ungetc=false -Dthread-local-storage=false -Dio-long-long=true -Dformat-default=integer -Dincludedir=picolibc/riscv64-unknown-elf/include -Dlibdir=picolibc/riscv64-unknown-elf/lib '--cross-file cross.txt'
+Python system: Linux
+The Meson build system
+Version: 0.59.0
+Source dir: /home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data
+Build dir: /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc
+Build type: cross build
+Project name: picolibc
+Project version: 1.7.9
+Sanity testing C compiler: riscv64-unknown-elf-gcc
+Is cross compiler: True.
+Sanity check compiler command line: riscv64-unknown-elf-gcc sanitycheckc.c -o sanitycheckc_cross.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -c
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+C compiler for the host machine: riscv64-unknown-elf-gcc (gcc 10.1.0 "riscv64-unknown-elf-gcc (SiFive GCC 10.1.0-2020.08.2) 10.1.0")
+C linker for the host machine: riscv64-unknown-elf-gcc ld.bfd 2.35.0-2020
+Sanity testing C compiler: cc
+Is cross compiler: False.
+Sanity check compiler command line: cc sanitycheckc.c -o sanitycheckc.exe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command: /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/sanitycheckc.exe
+C compiler for the build machine: cc (gcc 11.4.0 "cc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0")
+C linker for the build machine: cc ld.bfd 2.38
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: riscv
+Host machine cpu: vexriscv
+Target machine cpu family: riscv
+Target machine cpu: vexriscv
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpjwjxxmke
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpjwjxxmke/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpjwjxxmke/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -nostdlib 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -nostdlib: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpb_q46b42
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpb_q46b42/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpb_q46b42/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+#include <float.h>
+#ifndef __LDBL_MANT_DIG__
+#error No long double support in float.h
+#endif
+long double test()
+{
+	long double ld = 0.0L;
+	 return ld;
+}
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "long double check" compiles: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp8xt6x9bj
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp8xt6x9bj/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp8xt6x9bj/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+#include <float.h>
+char size_test[sizeof(double) == sizeof(long double) ? 1 : -1];
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp8xt6x9bj/testfile.c:3:6: error: size of array 'size_test' is negative
+    3 | char size_test[sizeof(double) == sizeof(long double) ? 1 : -1];
+      |      ^~~~~~~~~
+
+Checking if "long double same as double" compiles: NO 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7gpa_vex
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7gpa_vex/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7gpa_vex/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+#include <float.h>
+char size_test[__LDBL_MANT_DIG__ == 64 ? 1 : -1];
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7gpa_vex/testfile.c:3:6: error: size of array 'size_test' is negative
+    3 | char size_test[__LDBL_MANT_DIG__ == 64 ? 1 : -1];
+      |      ^~~~~~~~~
+
+Checking if "long double mantissa is 64 bits" compiles: NO 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmf5ui689
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmf5ui689/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmf5ui689/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+#include <float.h>
+char size_test[__LDBL_MANT_DIG__ == 113 ? 1 : -1];
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "long double mantissa is 113 bits" compiles: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3uwcmhk1
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3uwcmhk1/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3uwcmhk1/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+char size_test[sizeof(float) == sizeof(double) ? 1 : -1];
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3uwcmhk1/testfile.c:2:6: error: size of array 'size_test' is negative
+    2 | char size_test[sizeof(float) == sizeof(double) ? 1 : -1];
+      |      ^~~~~~~~~
+
+Checking if "double same as float" compiles: NO 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmprwwzsp_m
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmprwwzsp_m/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmprwwzsp_m/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-common 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-common: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpt85zmpu9
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpt85zmpu9/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpt85zmpu9/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -frounding-math 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -frounding-math: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmplmw2noy4
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmplmw2noy4/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmplmw2noy4/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fsignaling-nans 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fsignaling-nans: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpo2e9v40p
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpo2e9v40p/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpo2e9v40p/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wunsupported-floating-point-opt -Wno-unsupported-floating-point-opt 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ riscv64-unknown-elf-gcc: error: unrecognized command-line option '-Wunsupported-floating-point-opt'
+
+Compiler for C supports arguments -Wno-unsupported-floating-point-opt: NO 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpprseehd8
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpprseehd8/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpprseehd8/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-stack-protector 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-stack-protector: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp1upo66_z
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp1upo66_z/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp1upo66_z/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-builtin-copysignl 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-builtin-copysignl: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvxvwi7q9
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvxvwi7q9/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvxvwi7q9/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -O0 
+
+Code:
+ #ifdef __cplusplus
+        extern "C" {
+        #endif
+        void meson_uscore_prefix (void) {}
+        #ifdef __cplusplus
+        }
+        #endif
+        
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Symbols have underscore prefix: NO
+Program riscv64-unknown-elf-gcc-nm found: YES
+Program scripts/duplicate-names found: YES (/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/scripts/duplicate-names)
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpntekad_1
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpntekad_1/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpntekad_1/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wl,--fatal-warnings -Wl,--defsym=_start=0 -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ int main(void) { return 0; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports link arguments -Wl,--defsym=_start=0: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvbyij47s
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvbyij47s/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvbyij47s/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wl,--fatal-warnings -Wl,-alias,main,testalias -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ int main(void) { return 0; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: unrecognized -a option `lias'
+collect2: error: ld returned 1 exit status
+
+Compiler for C supports link arguments -Wl,-alias,main,testalias: NO 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp86j0eq9c
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp86j0eq9c/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp86j0eq9c/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ 
+        int foo(void) { return 0; }
+        int bar(void) __attribute__((alias("foo")));
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute alias: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp6ej6qatt
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp6ej6qatt/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp6ej6qatt/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ int foo(const char * p, ...) __attribute__((format(printf, 1, 2)));
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute format: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpnlux8_hv
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpnlux8_hv/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpnlux8_hv/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ int foo(void) __attribute__((weak));
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute weak: YES 
+Running command: /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/riscv64-unknown-elf-gcc -print-search-dirs
+--- stdout ---
+install: /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/
+programs: =/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../libexec/gcc/riscv64-unknown-elf/10.1.0/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../libexec/gcc/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/riscv64-unknown-elf/10.1.0/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/
+libraries: =/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/rv64imafdc/lp64d/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/rv64imafdc/lp64d/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/lib/riscv64-unknown-elf/10.1.0/rv64imafdc/lp64d/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc/lp64d/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../riscv64-unknown-elf/lib/riscv64-unknown-elf/10.1.0/rv64imafdc/lp64d/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../riscv64-unknown-elf/lib/rv64imafdc/lp64d/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../riscv64-unknown-elf/usr/lib/riscv64-unknown-elf/10.1.0/rv64imafdc/lp64d/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../riscv64-unknown-elf/usr/lib/rv64imafdc/lp64d/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/lib/riscv64-unknown-elf/10.1.0/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/lib/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../riscv64-unknown-elf/lib/riscv64-unknown-elf/10.1.0/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../riscv64-unknown-elf/lib/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../riscv64-unknown-elf/usr/lib/riscv64-unknown-elf/10.1.0/:/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../riscv64-unknown-elf/usr/lib/
+
+--- stderr ---
+
+
+Running command: /usr/bin/expr install: /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/ : install: *\(.*\)
+--- stdout ---
+/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/
+
+--- stderr ---
+
+
+Configuring picolibc.specs using configuration
+Configuring picolibcpp.specs using configuration
+Configuring test.specs using configuration
+Configuring picolibc.ld using configuration
+Configuring picolibcpp.ld using configuration
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpy2qv_knx
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpy2qv_knx/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpy2qv_knx/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=implicit-function-declaration 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Werror=implicit-function-declaration: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp5z11yjhc
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp5z11yjhc/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp5z11yjhc/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=vla 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Werror=vla: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvixqz4ky
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvixqz4ky/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpvixqz4ky/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Warray-bounds 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Warray-bounds: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpatse20ha
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpatse20ha/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpatse20ha/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wold-style-definition 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Wold-style-definition: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp5jv0jp8t
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp5jv0jp8t/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp5jv0jp8t/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=double-promotion 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Werror=double-promotion: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp9mtfac_z
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp9mtfac_z/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp9mtfac_z/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wmissing-braces -Wno-missing-braces 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Wno-missing-braces: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmprpyt5dnp
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmprpyt5dnp/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmprpyt5dnp/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wimplicit-int -Wno-implicit-int 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Wno-implicit-int: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpdlh9tocn
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpdlh9tocn/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpdlh9tocn/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wreturn-type -Wno-return-type 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Wno-return-type: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmbo4559m
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmbo4559m/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmbo4559m/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wunused-command-line-argument -Wno-unused-command-line-argument 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ riscv64-unknown-elf-gcc: error: unrecognized command-line option '-Wunused-command-line-argument'; did you mean '-Wunused-dummy-argument'?
+
+Compiler for C supports arguments -Wno-unused-command-line-argument: NO 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp8f5edn9l
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp8f5edn9l/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp8f5edn9l/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+struct test { int part: 24; } __attribute__((packed));
+unsigned int foobar (const struct test *p) { return p->part; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "packed structs may contain bitfields" compiles: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpv19x_a80
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpv19x_a80/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpv19x_a80/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+#include <stddef.h>
+int overflows (size_t a, size_t b) { size_t x; return __builtin_mul_overflow(a, b, &x); }
+volatile size_t aa = 42;
+int main (void) { return overflows(aa, aa); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010074
+/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: /tmp/ccyxDkgu.o: in function `overflows':
+/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpv19x_a80/testfile.c:3: undefined reference to `__mulsi3'
+/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpv19x_a80/testfile.c:3: undefined reference to `__mulsi3'
+/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpv19x_a80/testfile.c:3: undefined reference to `__mulsi3'
+/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpv19x_a80/testfile.c:3: undefined reference to `__mulsi3'
+/home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpv19x_a80/testfile.c:3: undefined reference to `__mulsi3'
+collect2: error: ld returned 1 exit status
+
+Checking if "has __builtin_mul_overflow" links: NO 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp1k0p23ng
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp1k0p23ng/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp1k0p23ng/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+#include <stddef.h>
+int overflows (size_t a, size_t b) { size_t x; return __builtin_add_overflow(a, b, &x); }
+volatile size_t aa = 42;
+int main (void) { return overflows(aa, aa); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010074
+
+Checking if "has __builtin_add_overflow" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpjqmojk88
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpjqmojk88/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpjqmojk88/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+float _Complex test(float _Complex z) { return z; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "supports _Complex" compiles: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7ohwhlhw
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7ohwhlhw/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7ohwhlhw/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+volatile int a = 42;
+int main (void) {
+  return __builtin_expect(a, 1);
+}
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010074
+
+Checking if "has __builtin_expect" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpl7ojqw0x
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpl7ojqw0x/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpl7ojqw0x/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Werror: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpqti6ptni
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpqti6ptni/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpqti6ptni/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -Werror 
+
+Code:
+ 
+void *foobar(int) __attribute__((__alloc_size__(1)));
+void *foobar2(int, int) __attribute__((__alloc_size__(1, 2)));
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "attribute __alloc_size__" compiles: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7ud_1d1d
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7ud_1d1d/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7ud_1d1d/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -Werror 
+
+Code:
+ 
+void __attribute__((constructor(101))) ctor (void) {}
+void __attribute__((destructor(101))) dtor (void) {}
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "attributes constructor/destructor" compiles: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp918yz5h3
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp918yz5h3/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp918yz5h3/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(void * i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_alloca(1)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_alloca" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3o_lvppq
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3o_lvppq/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3o_lvppq/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ffs(42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_ffs" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpfi2ixhzt
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpfi2ixhzt/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpfi2ixhzt/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(long i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ffsl((long)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_ffsl" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3i9nwkzi
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3i9nwkzi/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3i9nwkzi/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(long long i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ffsll((long long)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_ffsll" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpzpfx8y7k
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpzpfx8y7k/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpzpfx8y7k/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ctz((unsigned int)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_ctz" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpuu94wm3g
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpuu94wm3g/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpuu94wm3g/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ctzl((unsigned long)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_ctzl" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpkayz75mf
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpkayz75mf/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpkayz75mf/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ctzll((unsigned long long)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_ctzll" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpt252d81p
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpt252d81p/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpt252d81p/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(long double i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_copysignl((long double)42, (long double) 42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_copysignl" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp6r_8ouuw
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp6r_8ouuw/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp6r_8ouuw/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(double i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_copysign(42, 42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_copysign" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3cpl2v7l
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3cpl2v7l/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3cpl2v7l/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isinfl((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_isinfl" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7o69ut1f
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7o69ut1f/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7o69ut1f/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isinf((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_isinf" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3s66mdpy
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3s66mdpy/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp3s66mdpy/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isnanl((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_isnanl" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmxik32le
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmxik32le/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpmxik32le/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isnan((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_isnan" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7mm4dtqs
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7mm4dtqs/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp7mm4dtqs/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_finitel((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_finitel" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpm7cscq1h
+Command line:  riscv64-unknown-elf-gcc -L/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpm7cscq1h/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpm7cscq1h/output.exe -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isfinite((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/third_party/riscv64-unknown-elf-gcc/bin/../lib/gcc/riscv64-unknown-elf/10.1.0/../../../../riscv64-unknown-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 0000000000010054
+
+Checking if "test for __builtin_isfinite" links: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp0enqdzbz
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp0enqdzbz/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp0enqdzbz/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-tree-loop-distribute-patterns 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-tree-loop-distribute-patterns: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpc1eag0w8
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpc1eag0w8/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpc1eag0w8/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -Werror 
+
+Code:
+ int __attribute__((no_builtin)) foo(int x) { return x + 1; }
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpc1eag0w8/testfile.c:1:1: error: 'no_builtin' attribute directive ignored [-Werror=attributes]
+    1 | int __attribute__((no_builtin)) foo(int x) { return x + 1; }
+      | ^~~
+cc1: all warnings being treated as errors
+
+Checking if "no_builtin attribute" compiles: NO 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpd7kw9j53
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpd7kw9j53/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpd7kw9j53/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ inline __attribute__((always_inline)) int foo(void) { return 0; }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute always_inline: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpejc1e_m7
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpejc1e_m7/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpejc1e_m7/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ inline __attribute__((gnu_inline)) int foo(void) { return 0; }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute gnu_inline: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpihznslsf
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpihznslsf/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpihznslsf/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-builtin 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-builtin: YES 
+Running command: /usr/bin/sed -e /^#/d -e /^$/d -e s/ .*$// /home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/iconv/encoding.aliases
+--- stdout ---
+big5
+cp775
+cp850
+cp852
+cp855
+cp866
+euc_jp
+euc_kr
+euc_tw
+iso_8859_1
+iso_8859_10
+iso_8859_11
+iso_8859_13
+iso_8859_14
+iso_8859_15
+iso_8859_2
+iso_8859_3
+iso_8859_4
+iso_8859_5
+iso_8859_6
+iso_8859_7
+iso_8859_8
+iso_8859_9
+iso_ir_111
+koi8_r
+koi8_ru
+koi8_u
+koi8_uni
+ucs_2
+ucs_2_internal
+ucs_2be
+ucs_2le
+ucs_4
+ucs_4_internal
+ucs_4be
+ucs_4le
+us_ascii
+utf_16
+utf_16be
+utf_16le
+utf_8
+win_1250
+win_1251
+win_1252
+win_1253
+win_1254
+win_1255
+win_1256
+win_1257
+win_1258
+
+--- stderr ---
+
+
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp4o_dy9rx
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp4o_dy9rx/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp4o_dy9rx/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -ffunction-sections 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -ffunction-sections: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpcabxl4sc
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpcabxl4sc/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpcabxl4sc/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fstack-protector-all 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fstack-protector-all: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpn31ks8dv
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpn31ks8dv/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpn31ks8dv/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fstack-protector-strong 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fstack-protector-strong: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp14kemlzu
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp14kemlzu/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmp14kemlzu/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-builtin-malloc 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-builtin-malloc: YES 
+Running compile:
+Working directory:  /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpr875y6i4
+Command line:  riscv64-unknown-elf-gcc -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hc/rowhammer-tester-ZCU104/venv/lib/python3.10/site-packages/pythondata_software_picolibc/data/newlib/libc/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/libbase -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software/include -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/software -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include -I/home/hc/rowhammer-tester-ZCU104/build/zcu104/software/include/../libc -I/home/hc/rowhammer-tester-ZCU104/third_party/litex/litex/soc/cores/cpu/vexriscv /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpr875y6i4/testfile.c -o /home/hc/rowhammer-tester-ZCU104/build/zcu104/software/libc/meson-private/tmpr875y6i4/output.obj -c -Os -march=rv32i2p0 -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-builtin-free 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-builtin-free: YES 
+Message: libc/string/memcpy.c: machine overrides generic
+Message: libc/string/memmove.S: machine overrides generic
+Message: libc/string/memset.S: machine overrides generic
+Message: libc/string/strcpy.c: machine overrides generic
+Message: libc/string/strlen.c: machine overrides generic
+Message: libc/string/strcmp.S: machine overrides generic
+Message: libc/include/sys/fenv.h: machine overrides generic
+Message: libc/include/machine/math.h: machine overrides generic
+Message: libm/math/s_fabs.c: machine overrides generic
+Message: libm/math/s_sqrt.c: machine overrides generic
+Message: libm/math/sf_fabs.c: machine overrides generic
+Message: libm/math/sf_sqrt.c: machine overrides generic
+Message: libm/common/s_finite.c: machine overrides generic
+Message: libm/common/s_copysign.c: machine overrides generic
+Message: libm/common/s_isinf.c: machine overrides generic
+Message: libm/common/s_isnan.c: machine overrides generic
+Message: libm/common/s_fma.c: machine overrides generic
+Message: libm/common/s_fmax.c: machine overrides generic
+Message: libm/common/s_fmin.c: machine overrides generic
+Message: libm/common/s_fpclassify.c: machine overrides generic
+Message: libm/common/s_lrint.c: machine overrides generic
+Message: libm/common/s_llrint.c: machine overrides generic
+Message: libm/common/s_lround.c: machine overrides generic
+Message: libm/common/s_llround.c: machine overrides generic
+Message: libm/common/sf_finite.c: machine overrides generic
+Message: libm/common/sf_copysign.c: machine overrides generic
+Message: libm/common/sf_isinf.c: machine overrides generic
+Message: libm/common/sf_isnan.c: machine overrides generic
+Message: libm/common/sf_fma.c: machine overrides generic
+Message: libm/common/sf_fmax.c: machine overrides generic
+Message: libm/common/sf_fmin.c: machine overrides generic
+Message: libm/common/sf_fpclassify.c: machine overrides generic
+Message: libm/common/sf_lrint.c: machine overrides generic
+Message: libm/common/sf_llrint.c: machine overrides generic
+Message: libm/common/sf_lround.c: machine overrides generic
+Message: libm/common/sf_llround.c: machine overrides generic
+Message: libm/fenv/feclearexcept.c: machine overrides generic
+Message: libm/fenv/fegetenv.c: machine overrides generic
+Message: libm/fenv/fegetexceptflag.c: machine overrides generic
+Message: libm/fenv/fegetround.c: machine overrides generic
+Message: libm/fenv/feholdexcept.c: machine overrides generic
+Message: libm/fenv/feraiseexcept.c: machine overrides generic
+Message: libm/fenv/fesetenv.c: machine overrides generic
+Message: libm/fenv/fesetexceptflag.c: machine overrides generic
+Message: libm/fenv/fesetround.c: machine overrides generic
+Message: libm/fenv/fetestexcept.c: machine overrides generic
+Message: libm/fenv/feupdateenv.c: machine overrides generic
+Configuring picolibc.h using configuration
+Build targets in project: 9
+
+Found ninja-1.13.0.git.kitware.jobserver-pipe-1 at /home/hc/rowhammer-tester-ZCU104/venv/bin/ninja
+Command line for building ['newlib/libc.a'] is long, using a response file

@@ -1,45 +1,76 @@
 #!/usr/bin/env python3
+# This file is Copyright (c) 2020 Antmicro <www.antmicro.com>
+# This file is Copyright (c) 2020 Florent Kermarrec <florent@enjoy-digital.fr>
+# License: BSD
 
-from migen import *
-from migen.genlib.resetsync import AsyncResetSynchronizer
 
+# =====================
+# ZCU104目标板主配置文件
+# 主要功能：定义ZCU104平台的时钟、AXI互联、DDR4物理层、PS端口、I2C等硬件资源，
+# 并集成到LiteX SoC中，支持Rowhammer测试。
+# =====================
+
+from migen import *  # Migen是Python硬件描述库
+from migen.genlib.resetsync import AsyncResetSynchronizer  # 异步复位同步器
+
+
+# 导入ZCU104平台定义（管脚、时钟等）
 from litex_boards.platforms import xilinx_zcu104 as zcu104
+# Vivado构建参数相关
 from litex.build.xilinx.vivado import vivado_build_args, vivado_build_argdict
+# LiteX SoC构建器
 from litex.soc.integration.builder import Builder
+# 彩色日志输出
 from litex.soc.integration.soc_core import colorer
+# 时钟管理相关
 from litex.soc.cores.clock import USMMCM, USIDELAYCTRL
+# AXI/Wishbone总线接口
 from litex.soc.interconnect import axi, wishbone
+# I2C主机控制器
 from litex.soc.cores.bitbang import I2CMaster
 
+
+# DDR4物理层（PHY）
 from litedram.phy import usddrphy
 
+
+# 以太网PHY（可选）
 from liteeth.phy.usrgmii import LiteEthPHYRGMII
 
+
+# Rowhammer测试通用工具
 from rowhammer_tester.targets import common
 
 # CRG ----------------------------------------------------------------------------------------------
 
+
+# =====================
+# CRG（时钟复位生成器）
+# 负责生成SoC各个时钟域，并配置PLL、IDELAYCTRL等。
+# =====================
 class CRG(Module):
-    IODELAYCTRL_REFCLK_RANGE = (300e6, 800e6)  # according to Zynq US+ MPSoC datasheet
+    IODELAYCTRL_REFCLK_RANGE = (300e6, 800e6)  # Zynq US+ MPSoC官方推荐范围
 
     def __init__(self, platform, sys_clk_freq, iodelay_clk_freq):
-        self.rst = Signal()
-        self.clock_domains.cd_sys    = ClockDomain()
-        self.clock_domains.cd_sys4x  = ClockDomain(reset_less=True)
-        self.clock_domains.cd_pll4x  = ClockDomain(reset_less=True)
-        self.clock_domains.cd_idelay = ClockDomain()
-        self.clock_domains.cd_uart   = ClockDomain()
+        self.rst = Signal()  # 全局复位信号
+        # 定义各个时钟域
+        self.clock_domains.cd_sys    = ClockDomain()           # 主系统时钟
+        self.clock_domains.cd_sys4x  = ClockDomain(reset_less=True) # 4倍系统时钟
+        self.clock_domains.cd_pll4x  = ClockDomain(reset_less=True) # PLL输出4x
+        self.clock_domains.cd_idelay = ClockDomain()           # IDELAY控制时钟
+        self.clock_domains.cd_uart   = ClockDomain()           # UART时钟
 
-        # # #
-
+        # 配置PLL（USMMCM）
         self.submodules.pll = pll = USMMCM(speedgrade=-2)
         self.comb += pll.reset.eq(self.rst)
-        pll.register_clkin(platform.request("clk125"), 125e6)
+        pll.register_clkin(platform.request("clk125"), 125e6)  # 输入125MHz
         pll.create_clkout(self.cd_pll4x, sys_clk_freq*4, buf=None, with_reset=False)
         pll.create_clkout(self.cd_idelay, iodelay_clk_freq)
         pll.create_clkout(self.cd_uart, sys_clk_freq, with_reset=False)
-        platform.add_false_path_constraints(self.cd_sys.clk, pll.clkin) # Ignore sys_clk to pll.clkin path created by SoC's rst.
+        # 添加时钟约束，避免静态时序分析误报
+        platform.add_false_path_constraints(self.cd_sys.clk, pll.clkin)
 
+        # BUFGCE/BUFGCE_DIV用于时钟分频和缓冲
         self.specials += [
             Instance("BUFGCE_DIV", name="main_bufgce_div",
                 p_BUFGCE_DIVIDE=4,
@@ -48,14 +79,15 @@ class CRG(Module):
                 i_CE=1, i_I=self.cd_pll4x.clk, o_O=self.cd_sys4x.clk),
         ]
 
+        # IDELAYCTRL用于精确延迟控制（DDR4 PHY等）
         fmin, fmax = self.IODELAYCTRL_REFCLK_RANGE
         assert fmin <= iodelay_clk_freq <= fmax, \
-            f"IDELAYCTRL refclk must be in range ({fmin/1e6}, {fmax/1e6}) MHz, got {iodelay_clk_freq/1e6} MHz"
+            f"IDELAYCTRL refclk必须在({fmin/1e6}, {fmax/1e6}) MHz范围，当前: {iodelay_clk_freq/1e6} MHz"
         self.submodules.idelayctrl = USIDELAYCTRL(cd_ref=self.cd_idelay, cd_sys=self.cd_sys)
 
     @classmethod
     def find_iodelay_clk_freq(cls, sys_clk_freq):
-        # try to find IODELAYCTRL refclk as a multiple of sysclk so that a PLL config almost always is found
+        # 自动寻找合适的IDELAYCTRL参考时钟（为PLL配置服务）
         fmin, fmax = cls.IODELAYCTRL_REFCLK_RANGE
         mul = 4
         while sys_clk_freq * mul < fmin:
@@ -66,6 +98,10 @@ class CRG(Module):
 
 # SoC ----------------------------------------------------------------------------------------------
 
+########################################
+# ZynqUSPS: Zynq UltraScale+ PS端口互联
+# 负责PS端AXI主/从端口与PL互联，支持多种AXI映射
+########################################
 class ZynqUSPS(Module):
     # For full address map see UG1085, ZynqUS+ TRM, Table 10-1
     _KB = 2**10
@@ -179,6 +215,10 @@ class ZynqUSPS(Module):
     def do_finalize(self):
         self.specials += Instance('PS8', **self.params)
 
+########################################
+# SoC: 继承自RowHammerSoC，集成ZCU104平台的所有硬件资源
+# 包括I2C、PS端口、DDR4 PHY、AXI互联等
+########################################
 class SoC(common.RowHammerSoC):
     def __init__(self, **kwargs):
         min_rom = 0x9000
@@ -190,21 +230,23 @@ class SoC(common.RowHammerSoC):
         if self.args.sim:
             return
 
+
         # SPD EEPROM I2C ---------------------------------------------------------------------------
+        # 用于访问DDR4 SO-DIMM上的SPD EEPROM（I2C总线）
         self.submodules.i2c = I2CMaster(self.platform.request("i2c"))
         self.add_csr("i2c")
 
         # ZynqUS+ PS -------------------------------------------------------------------------------
+        # 集成Zynq PS端口互联（AXI主/从）
         self.submodules.ps = ZynqUSPS()
 
-        # Configure PS->PL AXI
-        # AXI(32) -> AXILite(32) -> WishBone(32) -> SoC Interconnect
+        # 配置PS->PL AXI互联
+        # PS端AXI主接口 -> AXILite -> Wishbone -> SoC总线
         axi_ps = self.ps.add_axi_gp_fpd_master(data_width=32)
-
         axi_lite_ps = axi.AXILiteInterface(data_width=32, address_width=40)
         self.submodules += axi.AXI2AXILite(axi_ps, axi_lite_ps)
 
-        # Use M_AXI_HPM0_FPD base address thaht will fit our whole address space (0x0004_0000_0000)
+        # 选择合适的AXI基地址，保证地址空间足够大
         base_address = None
         for base, size in self.ps.PS_MEMORY_MAP['gp_fpd_master'][0]:
             if size >= 2**30-1:
@@ -217,11 +259,11 @@ class SoC(common.RowHammerSoC):
                 yield lst[i:i + n]
 
         addr_str = '_'.join(chunks('{:012x}'.format(base_address), 4))
-        self.logger.info("Connecting PS AXI master from PS address {}.".format(colorer('0x' + addr_str)))
+        self.logger.info("连接PS AXI主接口，基地址: {}".format(colorer('0x' + addr_str)))
 
-        wb_ps = wishbone.Interface(adr_width=40-2)  # AXILite2Wishbone requires the same address widths
+        wb_ps = wishbone.Interface(adr_width=40-2)  # AXILite2Wishbone要求地址宽度一致
         self.submodules += axi.AXILite2Wishbone(axi_lite_ps, wb_ps, base_address=base_address)
-        # silently ignores address bits above 30
+        # 忽略高于30位的地址
         self.bus.add_master(name='ps_axi', master=wb_ps)
 
     def get_platform(self):
@@ -254,14 +296,18 @@ class SoC(common.RowHammerSoC):
 
 # Build --------------------------------------------------------------------------------------------
 
+
+# =====================
+# 主入口：解析参数，构建SoC，生成bit流
+# =====================
 def main():
     parser = common.ArgumentParser(
         description  = "LiteX SoC on ZCU104",
-        sys_clk_freq = '125e6',
-        module       = 'MTA4ATF51264HZ'
+        sys_clk_freq = '125e6',  # 保持125MHz匹配晶振频率
+        module       = 'M471A1K43EB1'  # 默认DDR4模块：三星8GB 3200
     )
     g = parser.add_argument_group(title="ZCU104")
-    g.add_argument("--iodelay-clk-freq", type=float, help="Use given exact IODELAYCTRL reference clock frequency")
+    g.add_argument("--iodelay-clk-freq", type=float, help="指定IDELAYCTRL参考时钟频率")
     vivado_build_args(g)
     args = parser.parse_args()
 
@@ -273,6 +319,7 @@ def main():
     builder = Builder(soc, **builder_kwargs)
     build_kwargs = vivado_build_argdict(args) if not args.sim else {}
 
+    # 启动构建流程，生成bit流
     common.run(args, builder, build_kwargs, target_name=target_name)
 
 if __name__ == "__main__":
