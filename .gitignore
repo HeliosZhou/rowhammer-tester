@@ -53,6 +53,20 @@ liblitespi.a
 # 保留重要的测试结果文件但忽略其他结果文件夹中的临时文件
 # rowhammer_tester/scripts/result/ 目录下的 .txt 文件会被保留
 
+# 自动跟踪测试数据和分析结果
+!rowhammer_tester/scripts/result/**/*.json
+!rowhammer_tester/scripts/result/**/*.csv
+!rowhammer_tester/scripts/result/**/*.py
+!rowhammer_tester/scripts/result/**/*.png
+!rowhammer_tester/scripts/result/**/*.pdf
+
+# 忽略临时和缓存文件
+rowhammer_tester/scripts/result/**/*.tmp
+rowhammer_tester/scripts/result/**/*.log
+
+# 在根目录自动跟踪分析脚本
+!*.py
+
 
 
 
