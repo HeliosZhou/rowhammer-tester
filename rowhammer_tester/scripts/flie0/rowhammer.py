@@ -192,7 +192,6 @@ class RowHammer:
         err_dict = {}
         for row in row_errors:
             cols = {}
-            row_bank = None  # 用于记录该行所属的bank
             if len(row_errors[row]) > 0:
                 flips = sum(
                     self.bitflips(value, expected) for addr, value, expected in row_errors[row])
@@ -204,21 +203,14 @@ class RowHammer:
                     base_addr = min(self.addresses_per_row(row))
                     addr = base_addr + 4 * i
                     bank, _row, col = self.converter.decode_bus(addr)
-                    if row_bank is None:
-                        row_bank = bank  # 记录第一个解码的bank信息
                     if self.verbose:
                         print(
-                            "Error: 0x{:08x}: 0x{:08x} (bank={}, row={}, col={})".format(
-                                addr, word, bank, _row, col))
+                            "Error: 0x{:08x}: 0x{:08x} (row={}, col={})".format(
+                                addr, word, _row, col))
                     bitflips = self.bitflip_list(word, expected)
                     cols[col] = bitflips
             if do_error_summary:
-                err_dict["{}".format(row)] = {
-                    'bank': row_bank if row_bank is not None else 0,  # 添加bank信息
-                    'row': _row, 
-                    'col': cols, 
-                    'bitflips': flips
-                }
+                err_dict["{}".format(row)] = {'row': _row, 'col': cols, 'bitflips': flips}
 
         if do_error_summary:
             return err_dict

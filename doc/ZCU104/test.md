@@ -1,44 +1,11 @@
 # Rowhammer Tester Scripts 脚本说明文档
-
 本目录包含了 Rowhammer Tester 项目的各种测试和分析脚本。这些脚本提供了从基础硬件测试到高级 Rowhammer 攻击分析的完整工具套件。
 
-## 📋 目录结构
+## DRAM 结构以及项目测试说明
+16384行 实际只测试8192行，即0-8191（1/8）
 
-```
-rowhammer_tester/scripts/
-├── __init__.py                 # Python 包初始化文件
-├── analyzer.py                 # LiteScope 逻辑分析仪
-├── benchmark.py                # 性能基准测试
-├── bios_console.py             # BIOS 控制台访问
-├── decode_ddr5_dimms.py        # DDR5 DIMM 解码工具
-├── dump_regs.py                # 内存寄存器转储
-├── execute_payload.py          # 载荷命令执行演示
-├── hw_rowhammer.py             # 硬件加速 Rowhammer 攻击
-├── leds.py                     # LED 控制测试
-├── logs2dq.py                  # DQ 数据线分析
-├── logs2plot.py                # 攻击日志绘图工具
-├── logs2vis.py                 # F4PGA 数据库可视化
-├── mem.py                      # 基础 DRAM 内存测试
-├── mem_bist.py                 # 硬件 BIST 内存测试
-├── read_level.py               # DRAM 读取电平校准
-├── rowhammer.py                # Rowhammer 攻击基础框架
-├── sim_runner.py               # 仿真运行器
-├── sim_runner_timed.py         # 带时间的仿真运行器
-├── spd_eeprom.py               # SPD EEPROM 读取
-├── utils.py                    # 通用工具库
-├── version.py                  # 版本信息
-└── playbook/                   # 攻击脚本集合
-```
 
-## 🔧 核心测试脚本
-
-### `rowhammer.py` - Rowhammer攻击基础框架
-**功能**: Rowhammer攻击的基类和核心逻辑实现
-- 提供行选择、攻击模式配置、数据验证等功能
-- 支持软件和硬件两种攻击方式
-- 其他 Rowhammer 相关脚本的基础框架
-
-#### 主要参数详解
+## 主要参数详解
 
 **基础配置参数**:
 - `--nrows NROWS`: 要测试的行数（默认512行）
@@ -77,14 +44,6 @@ rowhammer_tester/scripts/
 
 **全行测试**:
 - `--all-rows`: 对所有行执行完整测试序列，
-默认第0行开始（--start-row 0），行数每次增加1（--row-jump 1），行对间隔2（--row-pair-distance 2）
-(venv) $ python hw_rowhammer.py --all-rows --nrows 5  
-(0, 2), (1, 3), (2, 4)
-(venv) $ python hw_rowhammer.py --all-rows --start-row 10 --nrows 16 --row-jump 2 --row-distance 3
-(10, 13), (12, 15)
-(venv) $ python hw_rowhammer.py --all-rows --nrows 5 --row-pair-distance 0 --payload-executor
-单行
-
 - `--row-jump JUMP`: 配合 `--all-rows` 使用，设置行间跳跃距离
 
 **实验配置**:
@@ -119,38 +78,52 @@ rowhammer_tester/scripts/
     读取范围 --read_count_range 10e5 10e6 20e5
 
 1.数据保持时间
-(venv) $ python  hw_rowhammer.py --no-attack-time 1e9 --no-refresh --pattern all_1
-(T = 0.1-20s)
+    # 基础测试：
+    python hw_rowhammer.py --no-attack-time 5e9 --no-refresh --pattern all_1 (T = 5s)
+    # 数据保持时间（发生第一次bit翻转所需时间）：
+    python find_min_bitflip_time.py 
+    python plot_bitflip_time.py 
+    # bit翻转数量随等待时间变化 + 热力图可视化：
+    python bitflip_time_test.py 
 
 
+2.HCfirst（发生第一个bit翻转需要的锤击数，能否读到攻击所花费时间，方便与retention比较）
+    # 单边攻击：前部：(0)-(1)-...-(10)
+    python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
 
-2.单边、双边、大半径攻击（10e6次观察row11）
-最大攻击次数16e6次，否则超过数据保持时间
-(10) (venv) $ python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --read_count 10e6 --no-refresh --payload-executor --payload-size 0x30000 --log-dir ./test --log-filename xxx
-# 如果出现载荷内存不足错误，增加载荷内存大小
-(10) (venv) $ python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --read_count 17e6 --no-refresh --payload-executor --payload-size 0x10000 --log-dir ./test
+    # 攻击时间增大，是否会出现大面积bit翻转
 
-(0)-(1)-...-(10)
- $ python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 20 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
+3.单边、双边、大半径攻击（）
+    # 单边攻击：测试：（10）
+    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --read_count 5e4 --no-refresh --payload-executor --payload-size 0x10000 
+    # 单边攻击：前部：(0)-(1)-...-(10)
+    python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
+    # 单边攻击：中部：(4090)-(4091)-...-(4100)
+    python hw_rowhammer.py --all-rows --start-row 4090 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
+    # 单边攻击：后部：(8181)-(8182)-...-(8191)
+    python hw_rowhammer.py --all-rows --start-row 8181 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
+    # 特殊位置攻击：24 7523 5419
+    
 
-(10,12)(venv) $ python hw_rowhammer.py --row-pairs const --const-rows-pair 10 12 --read_count 5e4 --no-refresh
-(0,2)-(1,3)-...-(8,10) 
- $ python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 2  --read_count 10e6 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-(0,3)-(1,4)-...-(7,10) 
- $ python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 3  --read_count 10e6 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-(0,4)-(1,5)-...-(6,10) 
- $ python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 4  --read_count 10e6 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-
-16383行
-上0-30 中8190-8220 下16353-16383
+    # 1-双倍攻击：测试：(10,12)
+    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 12 --read_count 5e4 --no-refresh
+    # 1-双边攻击：前部：(0,2)-(1,3)-...-(8,10) 
+    python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 2  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
+    # 1-双边攻击：中部：(4090,4092)-(4091,4093)-...-(4098,4100)
+    python hw_rowhammer.py --all-rows --start-row 4090 --row-jump 1 --nrows 10 --row-pair-distance 2  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
+    # 1-双边攻击：后部：(8181,8183)-(8182,8184)-...-(8189,8191)
+    python hw_rowhammer.py --all-rows --start-row 8181 --row-jump 1 --nrows 10 --row-pair-distance 2  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
+    # 2-双边攻击：(0,2)-(1,3)-...-(8,10) --row-pair-distance 2
+    # 3-双边攻击：(0,3)-(1,4)-...-(7,10) --row-pair-distance 3
+    # 4-双边攻击：(0,4)-(1,5)-...-(6,10) --row-pair-distance 4
+# 注：看下--nrows 10 是不是这样用的
 
 
 3.数据模式 
-(Checkerboard 棋盘格)(venv) 
-$ python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 20e6 --pattern 01_in_row --no-refresh
-
-(Rowstripe 行条纹)(venv) 
-$ python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 20e6 --pattern 01_per_row --no-refresh
+    # Checkerboard 棋盘格
+    python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 5e4 --pattern 01_in_row --no-refresh
+    # Rowstripe 行条纹
+    python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 20e6 --pattern 01_per_row --no-refresh
 
 (All_1 全1)(venv) 
 $ python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 20e6 --pattern all_1 --no-refresh
@@ -164,49 +137,6 @@ rand_per_row 有问题，不要使用。（可以在rowhammer.py观察到）
 
 
 
-### `hw_rowhammer.py` - 硬件加速Rowhammer攻击
-**功能**: 使用 FPGA 硬件 BIST 模块执行高速 Rowhammer 攻击
-- 继承自 rowhammer.py，提供硬件加速功能
-- 比软件方式速度更快，能产生更密集的内存访问
-- 专门用于测试 DRAM 的 Rowhammer 漏洞
-
-**特点**:
-- 硬件加速，攻击速度极快
-- 支持多行同时攻击
-- 自动错误检测和报告
-- 使用 `--log-dir` 参数生成 JSON 日志文件供可视化分析
-
-**日志生成示例**:
-```bash
-# 生成 JSON 日志文件用于可视化
-python hw_rowhammer.py --nrows 512 --read_count 10e7 --const-rows-pair 54 133 --log-dir ./logs
-```
-
-
-**使用示例**:
-```bash
-# 基本用法 - 显示单个攻击
-python logs2plot.py attack_log.json
-
-# 生成攻击者对比图
-python logs2plot.py attack_log.json --aggressors-vs-victims
-
-# 保存为PNG并显示位翻转数量
-python logs2plot.py attack_log.json --annotate bitflips --png result.png
-
-# 自定义分组大小
-python logs2plot.py attack_log.json -gr 32 -gc 32
-```
-
-### `logs2vis.py` - F4PGA数据库可视化
-**功能**: 使用 F4PGA Database Visualizer 生成攻击日志可视化
-- 每次攻击生成独立的可视化结果
-- 提供更高级的可视化功能
-
-### `logs2dq.py` - DQ数据线分析
-**功能**: 分析 bit 翻转在不同 DQ 数据线上的分布
-- 生成按 DQ 分组的条形图
-- 帮助理解硬件故障模式和内存颗粒问题
 
 
 
