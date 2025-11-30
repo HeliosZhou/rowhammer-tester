@@ -60,6 +60,7 @@
 **使用示例**:
 ```bash
 0.通用代码
+    export TARGET=zcu104 && export IP_ADDRESS=192.168.100.50  
     生成json文件 --log-dir ./test
     
     画图  (venv) $ python logs2plot.py --aggressors-vs-victims your_error_summary.json
@@ -82,20 +83,24 @@
     python hw_rowhammer.py --no-attack-time 5e9 --no-refresh --pattern all_1 (T = 5s)
     # 数据保持时间（发生第一次bit翻转所需时间）：
     python find_min_bitflip_time.py 
-    python plot_bitflip_time.py 
-    # bit翻转数量随等待时间变化 + 热力图可视化：
+    # bit翻转数量随等待时间变化 + 热力图可视化 + 折线图
     python bitflip_time_test.py 
-
+    python plot_bitflip_time.py 
+    python quick_plot.py --all
 
 2.HCfirst（发生第一个bit翻转需要的锤击数，能否读到攻击所花费时间，方便与retention比较）
     # 单边攻击：前部：(0)-(1)-...-(10)
-    python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
+    python hw_rowhammer.py --all-rows --start-row 180 --row-jump 1 --nrows 182 --row-pair-distance 0  --read_count 2e4 --pattern all_1 --no-refresh --payload-executor --save 
 
     # 攻击时间增大，是否会出现大面积bit翻转
+    --read_count 5e6    759ms   无
+    --read_count 6e6    908ms   开始出现  结论：攻击会促进易损行的电荷泄露
+    --read_count 7e6    1060ms  开始出现
+
 
 3.单边、双边、大半径攻击（）
     # 单边攻击：测试：（10）
-    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --read_count 5e4 --no-refresh --payload-executor --payload-size 0x10000 
+    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --read_count 5e4 --no-refresh --payload-executor 
     # 单边攻击：前部：(0)-(1)-...-(10)
     python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
     # 单边攻击：中部：(4090)-(4091)-...-(4100)
@@ -123,10 +128,12 @@
     # Checkerboard 棋盘格
     python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 5e4 --pattern 01_in_row --no-refresh
     # Rowstripe 行条纹
-    python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 20e6 --pattern 01_per_row --no-refresh
+    python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 5e4 --pattern 01_per_row --no-refresh
+    # All_1 全1
+    # All_0 全0
 
 (All_1 全1)(venv) 
-$ python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 20e6 --pattern all_1 --no-refresh
+$ python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 5e4--pattern all_1 --no-refresh
 
 (All_0 全0)(venv) 
 $ python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 20e6 --pattern all_0 --no-refresh

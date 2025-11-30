@@ -128,6 +128,7 @@ class HwRowHammer(RowHammer):
             print('\nRunning Rowhammer attacks ...')
             for i, row_tuple in enumerate(row_pairs, start=1):
                 s = 'Iter {:{n}} / {:{n}}'.format(i, len(row_pairs), n=len(str(len(row_pairs))))
+                print(f'Attacking rows: {row_tuple}')
                 if self.payload_executor:
                     self.payload_executor_attack(read_count=read_count, row_tuple=row_tuple)
                 else:

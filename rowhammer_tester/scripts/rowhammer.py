@@ -269,6 +269,7 @@ class RowHammer:
             print('\nRunning Rowhammer attacks ...')
             for i, row_tuple in enumerate(row_pairs, start=1):
                 s = 'Iter {:{n}} / {:{n}}'.format(i, len(row_pairs), n=len(str(len(row_pairs))))
+                print(f'Attacking rows: {row_tuple}')
                 if self.payload_executor:
                     self.payload_executor_attack(read_count=read_count, row_tuple=row_tuple)
                 else:
@@ -328,6 +329,59 @@ def patterns_random_per_row(rows, seed=42):
     """Random pattern per row."""
     rng = random.Random(seed)
     return {row: rng.randint(0, 2**32 - 1) for row in rows}
+
+
+def generate_filename(args):
+    """Generate intelligent filename based on command arguments."""
+    
+    # Base components
+    components = []
+    
+    # Attack type
+    if args.all_rows:
+        if args.row_pair_distance == 0:
+            attack_type = "single_side"
+        else:
+            attack_type = f"double_side_d{args.row_pair_distance}"
+    elif args.row_pairs == 'const' and hasattr(args, 'const_rows_pair'):
+        attack_type = f"const_{args.const_rows_pair[0]}_{args.const_rows_pair[1]}"
+    elif args.hammer_only:
+        attack_type = f"hammer_only_{'_'.join(map(str, args.hammer_only))}"
+    elif args.no_attack_time:
+        attack_type = f"no_attack_{int(args.no_attack_time/1e9)}s"
+    else:
+        attack_type = "sequential"
+    
+    components.append(attack_type)
+    
+    # Row range
+    if args.all_rows:
+        # nrows is treated as the ending row number (not count of rows)
+        row_range = f"r{args.start_row}-{args.nrows}"
+    elif args.nrows:
+        # nrows is treated as the ending row number (not count of rows)  
+        row_range = f"r{args.start_row}-{args.nrows}"
+    else:
+        row_range = f"r{args.start_row}"
+    
+    components.append(row_range)
+    
+    # Read count
+    if args.read_count:
+        if args.read_count >= 1e6:
+            read_str = f"{int(args.read_count/1e6)}M"
+        elif args.read_count >= 1e3:
+            read_str = f"{int(args.read_count/1e3)}K"
+        else:
+            read_str = f"{int(args.read_count)}"
+        components.append(f"rc{read_str}")
+    
+    # Pattern (only include if not all_1)
+    if args.pattern and args.pattern != 'all_1':
+        components.append(f"pat_{args.pattern}")
+    
+    filename = f"HCfirst_{'_'.join(components)}.json"
+    return filename
 
 
 def main(row_hammer_cls):
@@ -399,6 +453,11 @@ def main(row_hammer_cls):
         "--exit-on-bit-flip",
         action="store_true",
         help='Exit tests as soon as bitflip is found',
+    )
+    parser.add_argument(
+        "--save",
+        action="store_true",
+        help='Save results to result/HCfirst/ directory with intelligent filename'
     )
     parser.add_argument(
         "--log-dir",
@@ -564,10 +623,25 @@ def main(row_hammer_cls):
         if row_hammer.bitflip_found and args.exit_on_bit_flip:
             break
 
+    # Save to user-specified log directory if provided (original behavior)
     if row_hammer.log_directory:
         with open("{}/error_summary_{}.json".format(row_hammer.log_directory, time.time()),
                   "w") as write_file:
             json.dump(row_hammer.err_summary, write_file, indent=4)
+    
+    # Save to HCfirst directory with intelligent filename if --save is used
+    if args.save:
+        script_dir = Path(__file__).parent
+        hcfirst_dir = script_dir / "result" / "HCfirst"
+        hcfirst_dir.mkdir(parents=True, exist_ok=True)
+        
+        filename = generate_filename(args)
+        filepath = hcfirst_dir / filename
+        
+        with open(filepath, "w") as write_file:
+            json.dump(row_hammer.err_summary, write_file, indent=4)
+        
+        print(f"\nResults saved to: {filepath}")
 
     wb.close()
 
