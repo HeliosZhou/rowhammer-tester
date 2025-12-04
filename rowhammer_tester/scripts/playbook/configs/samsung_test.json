@@ -1,0 +1,17 @@
+{
+    "payload_generator": "RowListPayloadGenerator",
+    "payload_generator_config": {
+        "row_mapping": "SamsungRowMapping",
+        "row_list": [
+            {"logical_row": 8, "count": 10000},
+            {"logical_row": 9, "count": 10000},
+            {"logical_row": 10, "count": 10000},
+            {"logical_row": 11, "count": 10000},
+            {"logical_row": 12, "count": 10000}
+        ],
+        "bank": 0,
+        "refresh": false,
+        "read_count": 50000
+    },
+    "verbose": true
+}

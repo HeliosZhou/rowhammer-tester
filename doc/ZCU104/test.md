@@ -71,130 +71,136 @@
     python logs2plot.py log.json --annotate bitflips --no-colorbar --png detailed.png
 
     # 发布用图表
-    python logs2plot.py xxx.json --aggressors-vs-victims --annotate bitflips --no-colorbar --png xxx.png
+    python logs2plot.py ./result/a-hammer/a-hammer_single_side_r0-10_rc40K.json --aggressors-vs-victims --annotate bitflips --no-colorbar --png logs2plot.py a-hammer_single_side_r0-10_rc40K.png
 
     # 研究用高精度
     python logs2plot.py log.json -gr 256 -gc 256 --annotate bitflips
     
     读取范围 --read_count_range 10e5 10e6 20e5
 
+    # 数据处理（地址正确映射）
+    python convert_address.py --input-file ./test/error_summary_2023-07-13_16-04-01.json 
+    python convert_address.py /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/retention/bitflip_time_test_20251126_182933.json
+
 1.数据保持时间
     # 基础测试：
     python hw_rowhammer.py --no-attack-time 5e9 --no-refresh --pattern all_1 (T = 5s)
-    # 数据保持时间（发生第一次bit翻转所需时间）：
+
+    # 测试1：数据保持时间（发生第一次bit翻转所需时间）：
+    # 结果1：T = 1s
     python find_min_bitflip_time.py 
-    # bit翻转数量随等待时间变化 + 热力图可视化 + 折线图
+
+    # 测试2：bit翻转数量随等待时间变化 + 热力图可视化 + 折线图
+    # 结果2：指数关系，分布无明显规律，存在弱单元容易泄露
     python bitflip_time_test.py 
     python plot_bitflip_time.py 
-    python quick_plot.py --all
+    python quick_heatmap.py 
 
 2.HCfirst（发生第一个bit翻转需要的锤击数，能否读到攻击所花费时间，方便与retention比较）
-    # 单边攻击：前部：(0)-(1)-...-(10)
-    python hw_rowhammer.py --all-rows --start-row 180 --row-jump 1 --nrows 182 --row-pair-distance 0  --read_count 2e4 --pattern all_1 --no-refresh --payload-executor --save 
+    # 测试单边攻击：(10)
+    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --read_count 5e4 --nrows 8192 --no-refresh --payload-executor 
 
-    # 攻击时间增大，是否会出现大面积bit翻转
+    # 测试1：使用脚本进行大范围测试 精度100    
+    # 结果1：HCfirst = 10000-20000 存在脆弱行
+    python test_hcfirst_simple.py --start 0 --count 128 --precision 100 
+    python test_hcfirst_simple.py --start 4032 --count 128 --precision 100
+    python test_hcfirst_simple.py --start 8064 --count 128 --precision 100
+    python plot_hcfirst.py HCfirst_*.json 
+    python plot_hcfirst.py --compact --output compact_view.png  # 紧凑视图，自动分段显示
+    python plot_hcfirst.py HCfirst_rows_8064-8191.json 
+
+    # 测试2：攻击时间增大，是否会出现大面积bit翻转
+    # 结果2：read_count = 6e6 即六百万次锤击后出现异常翻转，时间908ms < retention 1s
     --read_count 5e6    759ms   无
     --read_count 6e6    908ms   开始出现  结论：攻击会促进易损行的电荷泄露
-    --read_count 7e6    1060ms  开始出现
-
-
-3.单边、双边、大半径攻击（）
-    # 单边攻击：测试：（10）
-    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --read_count 5e4 --no-refresh --payload-executor 
-    # 单边攻击：前部：(0)-(1)-...-(10)
-    python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-    # 单边攻击：中部：(4090)-(4091)-...-(4100)
-    python hw_rowhammer.py --all-rows --start-row 4090 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-    # 单边攻击：后部：(8181)-(8182)-...-(8191)
-    python hw_rowhammer.py --all-rows --start-row 8181 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-    # 特殊位置攻击：24 7523 5419
-    
-
-    # 1-双倍攻击：测试：(10,12)
-    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 12 --read_count 5e4 --no-refresh
-    # 1-双边攻击：前部：(0,2)-(1,3)-...-(8,10) 
-    python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 2  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-    # 1-双边攻击：中部：(4090,4092)-(4091,4093)-...-(4098,4100)
-    python hw_rowhammer.py --all-rows --start-row 4090 --row-jump 1 --nrows 10 --row-pair-distance 2  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-    # 1-双边攻击：后部：(8181,8183)-(8182,8184)-...-(8189,8191)
-    python hw_rowhammer.py --all-rows --start-row 8181 --row-jump 1 --nrows 10 --row-pair-distance 2  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --log-dir ./test --log-filename xxx
-    # 2-双边攻击：(0,2)-(1,3)-...-(8,10) --row-pair-distance 2
-    # 3-双边攻击：(0,3)-(1,4)-...-(7,10) --row-pair-distance 3
-    # 4-双边攻击：(0,4)-(1,5)-...-(6,10) --row-pair-distance 4
-# 注：看下--nrows 10 是不是这样用的
-
+    --read_count 7e6    1060ms  开始出现  注：无法再高，超过了payload executor 容量，要重跑Bit流
 
 3.数据模式 
-    # Checkerboard 棋盘格
-    python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 5e4 --pattern 01_in_row --no-refresh
-    # Rowstripe 行条纹
-    python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 5e4 --pattern 01_per_row --no-refresh
-    # All_1 全1
-    # All_0 全0
+    # 测试1：改变数据模式，测试20-29行，4万次锤击，单边攻击
+    # 结论1：数据模式敏感性排序 All_0 > 01_in_row ≈ rand_per_row > 01_per_row > All_1
+    # 结论2：All_0模式最容易受攻击（730+ bitflips），All_1最稳定（260+ bitflips）
 
-(All_1 全1)(venv) 
-$ python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 5e4--pattern all_1 --no-refresh
+    # Checkerboard 棋盘格 (581 bitflips)
+    python hw_rowhammer.py --all-rows --start-row 20 --row-jump 1 --nrows 30 --row-pair-distance 0  --read_count 4e4 --pattern 01_in_row --no-refresh --payload-executor --save datapattern 
+    # Rowstripe 行条纹 (526 bitflips)
+    python hw_rowhammer.py --all-rows --start-row 20 --row-jump 1 --nrows 30 --row-pair-distance 0  --read_count 4e4 --pattern 01_per_row --no-refresh --payload-executor --save datapattern  
+    # All_1 全1 (260 bitflips - 最稳定)
+    python hw_rowhammer.py --all-rows --start-row 20 --row-jump 1 --nrows 30 --row-pair-distance 0  --read_count 4e4 --pattern all_1  --no-refresh --payload-executor --save datapattern  
+    # All_0 全0 (730+ bitflips - 最敏感)
+    python hw_rowhammer.py --all-rows --start-row 20 --row-jump 1 --nrows 30 --row-pair-distance 0  --read_count 4e4 --pattern all_0  --no-refresh --payload-executor --save datapattern  
+    # 随机数据 (550 bitflips)
+    python hw_rowhammer.py --all-rows --start-row 20 --row-jump 1 --nrows 30 --row-pair-distance 0  --read_count 4e4 --pattern rand_per_row --no-refresh --payload-executor --save datapattern  
+    # 绘图
+    python logs2vis.py /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/a-hammer/a-hammer_single_side_r1000-2000_rc40K.json /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/a-hammer/ --aggressors-vs-victims
+    
+    python logs2plot.py /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/datapattern/datapattern_single_side_r20-30_rc40K_pat_rand_per_row.json --aggressors-vs-victims --annotate bitflips --png /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/datapattern/datapattern_single_side_r20-30_rc40K_pat_rand_per_row.png
 
-(All_0 全0)(venv) 
-$ python hw_rowhammer.py --nrows 512 --row-pairs const --const-rows-pair 10 14 --read_count 20e6 --pattern all_0 --no-refresh
 
-rand_per_row 有问题，不要使用。（可以在rowhammer.py观察到）
+4.单边攻击
+    # 单边攻击：基础测试：（10）
+    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --nrows 8192 --read_count 9e6 --no-refresh --payload-executor --save a-hammer
+    # 单边攻击：基础测试：(0)-(1)-...-(10)
+    python hw_rowhammer.py --all-rows --start-row 0 --row-jump 1 --nrows 10 --row-pair-distance 0  --read_count 3e4 --pattern all_1 --no-refresh --payload-executor --save a-hammer 
+
+    # 测试1：边界值测试
+    # 结论1：（0，1，2）（8193-8191）行异常翻转
+    python hw_rowhammer.py --row-pairs const --const-rows-pair 5 5 --nrows 8192 --read_count 3e4 --no-refresh --payload-executor --save a-hammer
+    （0）
+    Bit-flips for row     1: 11  # 异常
+    Bit-flips for row  4985: 24
+    （1）
+    Bit-flips for row     0: 48  # 异常
+    Bit-flips for row  1272: 135
+    Bit-flips for row  1280: 32
+    （2）
+    Bit-flips for row     3: 28  # 异常，不管--read_count 加到多大都只有row3翻转
+    （3）
+    Bit-flips for row     2: 36  # 正常，从row3开始一切正常
+    Bit-flips for row     4: 111
+    （4）
+    Bit-flips for row     3: 18  # 正常
+    Bit-flips for row     5: 22
+    （5）
+    Bit-flips for row     4: 51  # 正常
+    Bit-flips for row     6: 107    
+    ...
+    （8182）
+    Bit-flips for row  8181: 31  # 正常
+    Bit-flips for row  8183: 18  # 从8183开始异常
+    （8183）
+    Bit-flips for row  8182: 65
+    Bit-flips for row  8190: 183 # 以下异常，应该是8184
+    （8184）
+    Bit-flips for row  8182: 31  # 异常
+    Bit-flips for row  8185: 21
+    Bit-flips for row  8187: 88
+    Bit-flips for row  8190: 93
+    ...
+    （8190）
+
+
+    # 测试2：遍历0-8191行，看是否能找到异常值（受害者行未明显翻转，即存在子阵列）--10h
+    # 结论2：周期性异常，6行正常，10行不正常，且正常行呈现奇偶规律
+    python hw_rowhammer.py --all-rows --start-row 1000 --row-jump 1 --nrows 2000 --row-pair-distance 0  --read_count 4e4 --pattern all_1 --no-refresh --payload-executor --save a-hammer
+
+
+
+5、双边、大半径攻击（）
+    # 1-双边攻击：测试：(10,12)
+    python hw_rowhammer.py --row-pairs const --const-rows-pair 1111 1113 --read_count 7e6 --pattern all_1 --no-refresh --nrows 8192 --save a-hammer
+
+    # 2-双边攻击：(10,12)-(11,13)-...-(18,20) --row-pair-distance 2
+    python hw_rowhammer.py --all-rows --start-row 10 --row-jump 1 --nrows 20 --row-pair-distance 2  --read_count 5e7 --pattern all_1 --no-refresh --payload-executor --save a-hammer
+
+    # 3-双边攻击：(10,13)-(11,14)-...-(17,20) --row-pair-distance 3
+    python hw_rowhammer.py --all-rows --start-row 10 --row-jump 1 --nrows 20 --row-pair-distance 3 --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --save a-hammer
+
+    # 4-双边攻击：(10,14)-(11,15)-...-(16,20) --row-pair-distance 4
+    python hw_rowhammer.py --all-rows --start-row 10 --row-jump 1 --nrows 20 --row-pair-distance 4  --read_count 5e4 --pattern all_1 --no-refresh --payload-executor --save a-hammer
+
+# 注：看下--nrows 10 是不是这样用的
+
+6.探索新的攻击模式
+
 
 ```
-
-
-
-
-
-
-
-        "read_count": 10000000,
-        "pair_10_10": {
-            "hammer_row_1": 10,
-            "hammer_row_2": 10,
-            "errors_in_rows": {
-                "9": {
-                    "row": 9,
-                    "col": {
-                        "56": [
-                            68
-                        ],
-                        "160": [
-                            98,
-                            114
-                        ],
-                        ...
-                    },
-                    "bitflips": 26
-                },
-                "11": {
-                    "row": 11,
-                    "col": {
-                        "216": [
-                            97
-                        ],
-                        "560": [
-                            2,
-                            18
-                        ]
-                    },
-                    "bitflips": 3
-                }
-            }
-        },
-
-这里col都是8的倍数，原因：DDR3系统有128位数据宽度（32 dfi_databits × 4 nphases = 128位）
-"phy": {
-    "databits": 16,      // 物理内存芯片的数据宽度
-    "dfi_databits": 32,  // DFI接口的数据宽度  
-    "nphases": 4         // DDR 相位数
-}
-所以8列（16bit*8）对应1组数据(128bit)，即将1024列分成128组，每组8列（128bit）
- "col": 
-                        "56": [
-                            68    //第（56+68%16=60列），第4bit翻转
-                        ],
-                        "160": [
-                            98,   //第（160+98%16=166列），第2bit翻转
-                            114   //第（160+114%16=167列），第2bit翻转
-                        ],

@@ -1,0 +1,17 @@
+{
+    "payload_generator": "HammerTolerancePayloadGenerator", 
+    "payload_generator_config": {
+        "row_mapping": "SamsungRowMapping",
+        "distance": 1,
+        "read_count": 100000,
+        "max_dilution": 8,
+        "initial_dilution": 1,
+        "dilution_multiplier": 2,
+        "bank": 0,
+        "verbose": true,
+        "refresh": false,
+        "start_row": 100,
+        "end_row": 200
+    },
+    "verbose": true
+}

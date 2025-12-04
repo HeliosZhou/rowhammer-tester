@@ -6,15 +6,13 @@ HCfirst测试脚本 - 简化版
 使用方法:
   python test_hcfirst_simple.py                    # 测试所有8192行
   python test_hcfirst_simple.py --test             # 测试模式：只测试3行(180-182)
-  python test_hcfirst_simple.py --start 100 --count 50  # 自定义起始行和数量
-  python test_hcfirst_simple.py --start 0 --count 127
-  python test_hcfirst_simple.py --start 4032 --count 4159
-  python test_hcfirst_simple.py --start 8064 --count 8191
-  10分钟: 约13-15行
-  30分钟: 约40-45行
-  1小时: 约80-90行
-  2小时: 约160-180行
-  半天(12小时): 约960-1080行
+  python test_hcfirst_simple.py --start 0 --count 128 --precision 100 # 自定义起始行和数量
+  python test_hcfirst_simple.py --start 0 --count 128 --precision 100
+  python test_hcfirst_simple.py --start 4032 --count 128 --precision 100
+  python test_hcfirst_simple.py --start 8063 --count 128 --precision 100
+
+  注：精度从1→100，时间大概减半。1小时: 约200行
+
 """
 
 import os
@@ -29,12 +27,12 @@ import argparse
 from datetime import datetime
 
 # ===== 可自定义配置参数 =====
-INITIAL_READ_COUNT = 25000        # 起始read_count值 (可自定义)
+INITIAL_READ_COUNT = 20000        # 起始read_count值 (可自定义)
 # 已移除验证功能，找到bit翻转即确定HCfirst
 
 # ===== 其他配置参数 =====
-MIN_READ_COUNT = 1000            # 最小read_count值
-MAX_READ_COUNT = 10000000        # 最大read_count值
+MIN_READ_COUNT = 10000           # 最小read_count值
+MAX_READ_COUNT = 30000           # 最大read_count值
 
 # 结果保存目录
 RESULTS_DIR = "/home/hc/rowhammer-tester/rowhammer_tester/scripts/result/HCfirst"
@@ -50,17 +48,21 @@ def parse_args():
                        help='起始行号 (默认: 0)')
     parser.add_argument('--count', type=int, default=8192,
                        help='测试行数 (默认: 8192)')
+    parser.add_argument('--precision', type=int, default=1,
+                       help='精度控制：1=精确到个位, 10=精确到十位, 100=精确到百位 (默认: 1)')
     return parser.parse_args()
 
 # 全局变量，在main函数中设置
 START_ROW = 0
 TOTAL_ROWS = 8192
+PRECISION = 1  # 精度控制
 
 class SimpleHCFirstTester:
     def __init__(self):
         self.results = {}
         self.tested_count = 0
         self.success_count = 0
+        self.precision = PRECISION  # 精度控制：1=个位, 10=十位, 100=百位
         
         # 创建结果目录
         os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -69,12 +71,20 @@ class SimpleHCFirstTester:
         self.temp_log_dir = tempfile.mkdtemp(prefix="hcfirst_logs_")
         
         # 生成结果文件名
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.result_file = os.path.join(RESULTS_DIR, f"HCfirst_all_rows_0-8191_{timestamp}.json")
+        # 根据实际测试范围生成文件名，不包含时间戳
+        end_row = START_ROW + TOTAL_ROWS - 1
+        if TOTAL_ROWS == 3 and START_ROW == 180:
+            # 测试模式特殊标识
+            filename = f"HCfirst_test_rows_{START_ROW}-{end_row}.json"
+        else:
+            filename = f"HCfirst_rows_{START_ROW}-{end_row}.json"
+        
+        self.result_file = os.path.join(RESULTS_DIR, filename)
         
         print(f"HCfirst测试开始")
-        print(f"测试范围: 行 0-8191 ({TOTAL_ROWS}行)")
+        print(f"测试范围: 行 {START_ROW}-{START_ROW + TOTAL_ROWS - 1} ({TOTAL_ROWS}行)")
         print(f"初始read_count: {INITIAL_READ_COUNT:,}")
+        print(f"精度控制: {self.precision} ({'个位' if self.precision == 1 else f'{self.precision}的倍数'})")
         print(f"不进行验证，找到bit翻转即确定HCfirst")
         print(f"临时日志目录: {self.temp_log_dir}")
         print(f"结果文件: {self.result_file}")
@@ -248,11 +258,12 @@ class SimpleHCFirstTester:
         
         # 确定起始read_count
         if self.success_count > 0:
-            # 使用最近成功结果的read_count作为起始点
+            # 使用最近成功结果的hcfirst作为起始点
             recent_successes = []
-            for read_count_data in list(self.results.values())[-10:]:
-                if 'read_count' in read_count_data:
-                    recent_successes.append(read_count_data['read_count'])
+            # 取最近10个成功的结果
+            for row_data in list(self.results.values())[-10:]:
+                if isinstance(row_data, dict) and row_data.get('status') == 'success' and 'hcfirst' in row_data:
+                    recent_successes.append(row_data['hcfirst'])
             
             if recent_successes:
                 start_count = int(sum(recent_successes) / len(recent_successes))
@@ -311,6 +322,16 @@ class SimpleHCFirstTester:
         
         while low <= high and iteration < 15:  # 最多15次迭代
             iteration += 1
+            
+            # 精度控制：如果范围已经足够小，停止搜索
+            if high - low < self.precision:
+                print(f"  精度控制: 范围 {low:,}-{high:,} 小于精度 {self.precision}，停止搜索")
+                if found_hcfirst is not None:
+                    # 将找到的值按精度进行舍入
+                    found_hcfirst = ((found_hcfirst + self.precision - 1) // self.precision) * self.precision
+                    print(f"  精度控制: 舍入到 {found_hcfirst:,}")
+                break
+            
             mid = (low + high) // 2
             
             print(f"  [{iteration:2d}] 测试 {mid:,}")
@@ -334,6 +355,14 @@ class SimpleHCFirstTester:
             found_hcfirst = start_count
             found_result = last_successful_result
         
+        # 最终精度控制：将结果按精度舍入
+        if found_hcfirst is not None and self.precision > 1:
+            original_hcfirst = found_hcfirst
+            found_hcfirst = ((found_hcfirst + self.precision - 1) // self.precision) * self.precision
+            if original_hcfirst != found_hcfirst:
+                print(f"  精度控制: {original_hcfirst:,} 舍入到 {found_hcfirst:,}")
+        
+        
         return found_hcfirst, found_result
 
     def test_row(self, row):
@@ -345,33 +374,34 @@ class SimpleHCFirstTester:
         
         if hcfirst is None:
             print(f"  结果: 失败 - 无法找到HCfirst")
+            # 记录失败的行
+            self.results[str(row)] = {
+                "row": row,
+                "status": "failed",
+                "hcfirst": None,
+                "errors_in_rows": {}
+            }
         else:
             print(f"  结果: HCfirst = {hcfirst:,}")
             self.success_count += 1
             
-            # 按新格式保存结果 - 匹配提供的JSON格式
-            read_count_key = str(hcfirst)
-            pair_key = f"pair_{row}_{row}"
-            
-            if read_count_key not in self.results:
-                self.results[read_count_key] = {
-                    "read_count": hcfirst
-                }
-            
-            # 创建pair数据
-            pair_data = {
+            # 按行号组织结果数据
+            row_data = {
+                "row": row,
+                "status": "success", 
+                "hcfirst": hcfirst,
                 "hammer_row_1": row,
                 "hammer_row_2": row
             }
             
             # 如果有详细的bit翻转信息，添加到结果中
             if detailed_result and 'detailed_errors' in detailed_result and detailed_result['detailed_errors']:
-                pair_data["errors_in_rows"] = detailed_result['detailed_errors']
+                row_data["errors_in_rows"] = detailed_result['detailed_errors']
             else:
                 # 如果没有详细信息，创建空的errors_in_rows
-                pair_data["errors_in_rows"] = {}
+                row_data["errors_in_rows"] = {}
             
-            self.results[read_count_key][pair_key] = pair_data
+            self.results[str(row)] = row_data
         
         self.tested_count += 1
         elapsed_time = time.time() - start_time
@@ -422,12 +452,11 @@ class SimpleHCFirstTester:
         print(f"成功测试: {self.success_count}/{self.tested_count} ({self.success_count/max(1,self.tested_count)*100:.1f}%)")
         
         if self.success_count > 0:
-            # 提取所有HCfirst值
+            # 提取所有HCfirst值（新的数据结构）
             all_hcfirst = []
-            for read_count_data in self.results.values():
-                for key, pair_data in read_count_data.items():
-                    if key.startswith('pair_') and isinstance(pair_data, dict) and 'hcfirst' in pair_data:
-                        all_hcfirst.append(pair_data['hcfirst'])
+            for row_data in self.results.values():
+                if isinstance(row_data, dict) and row_data.get('status') == 'success' and 'hcfirst' in row_data:
+                    all_hcfirst.append(row_data['hcfirst'])
             
             if all_hcfirst:
                 print(f"HCfirst统计:")
@@ -439,10 +468,13 @@ class SimpleHCFirstTester:
 
 
 def main():
-    global START_ROW, TOTAL_ROWS
+    global START_ROW, TOTAL_ROWS, PRECISION
     
     # 解析命令行参数
     args = parse_args()
+    
+    # 设置精度
+    PRECISION = args.precision
     
     # 设置测试范围
     if args.test:

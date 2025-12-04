@@ -12,11 +12,12 @@ from matplotlib.colors import LogNorm
 import argparse
 from collections import defaultdict
 
-def calculate_real_column(col_key, bitflip_position):
-    """计算真实列地址: 实际列 = col_key + bitflip_position // 64"""
+def extract_row_col_from_data(row_key, col_key, bitflip_position):
+    """从已处理的数据中提取真实的行列地址（已经是物理地址，无需再次计算）"""
+    row = int(row_key.split('_')[0])  # 支持 "row_bankX" 格式，取行号部分
     col = int(col_key)
-    real_col = col + bitflip_position // 64
-    return real_col
+    bit = bitflip_position
+    return row, col, bit
 
 def extract_bitflip_positions(raw_data, dram_rows=8192, dram_cols=1024):
     """提取位翻转位置信息"""
@@ -30,16 +31,15 @@ def extract_bitflip_positions(raw_data, dram_rows=8192, dram_cols=1024):
         
         for repeat_data in repeat_details:
             for row_key, row_info in repeat_data.items():
-                row_num = int(row_key)
-                
                 if 'col' in row_info:
                     for col_key, col_info in row_info['col'].items():
                         if 'bitflip_positions' in col_info:
                             for bitflip_pos in col_info['bitflip_positions']:
-                                real_col = calculate_real_column(col_key, bitflip_pos)
+                                # 直接使用已经处理过的行列地址，无需再次计算
+                                row, col, bit = extract_row_col_from_data(row_key, col_key, bitflip_pos)
                                 
-                                if 0 <= row_num < dram_rows and 0 <= real_col < dram_cols:
-                                    position_counts[(row_num, real_col)] += 1
+                                if 0 <= row < dram_rows and 0 <= col < dram_cols:
+                                    position_counts[(row, col)] += 1
         
         print(f"时间点 {attack_time:.2f}s: {len(position_counts)} bitflip positions")
         
@@ -171,8 +171,8 @@ def plot_quick_heatmap(json_file, time_point=None, save_plot=True):
         input_path = Path(json_file)
         base_name = input_path.stem
         
-        # 设置输出目录为result/result/retention/
-        output_dir = Path("/home/hc/rowhammer-tester/rowhammer_tester/scripts/result/result/retention/")
+        # 设置输出目录为photo文件夹（与输入文件同目录下的photo子文件夹）
+        output_dir = input_path.parent / "photo"
         output_dir.mkdir(parents=True, exist_ok=True)
         
         # 创建输出文件名 - 去掉时间戳，只保留关键信息

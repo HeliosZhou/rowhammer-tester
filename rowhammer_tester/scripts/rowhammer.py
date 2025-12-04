@@ -331,7 +331,7 @@ def patterns_random_per_row(rows, seed=42):
     return {row: rng.randint(0, 2**32 - 1) for row in rows}
 
 
-def generate_filename(args):
+def generate_filename(args, prefix="HCfirst"):
     """Generate intelligent filename based on command arguments."""
     
     # Base components
@@ -380,7 +380,7 @@ def generate_filename(args):
     if args.pattern and args.pattern != 'all_1':
         components.append(f"pat_{args.pattern}")
     
-    filename = f"HCfirst_{'_'.join(components)}.json"
+    filename = f"{prefix}_{'_'.join(components)}.json"
     return filename
 
 
@@ -456,8 +456,10 @@ def main(row_hammer_cls):
     )
     parser.add_argument(
         "--save",
-        action="store_true",
-        help='Save results to result/HCfirst/ directory with intelligent filename'
+        nargs='?',
+        const="HCfirst",
+        default=None,
+        help='Save results with intelligent filename. Optional: specify custom subdirectory under result/ (default: HCfirst)'
     )
     parser.add_argument(
         "--log-dir",
@@ -629,14 +631,14 @@ def main(row_hammer_cls):
                   "w") as write_file:
             json.dump(row_hammer.err_summary, write_file, indent=4)
     
-    # Save to HCfirst directory with intelligent filename if --save is used
+    # Save to custom directory with intelligent filename if --save is used
     if args.save:
         script_dir = Path(__file__).parent
-        hcfirst_dir = script_dir / "result" / "HCfirst"
-        hcfirst_dir.mkdir(parents=True, exist_ok=True)
+        save_dir = script_dir / "result" / args.save
+        save_dir.mkdir(parents=True, exist_ok=True)
         
-        filename = generate_filename(args)
-        filepath = hcfirst_dir / filename
+        filename = generate_filename(args, prefix=args.save)
+        filepath = save_dir / filename
         
         with open(filepath, "w") as write_file:
             json.dump(row_hammer.err_summary, write_file, indent=4)
