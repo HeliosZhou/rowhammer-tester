@@ -2,19 +2,28 @@
 """
 Samsung芯片特殊地址映射变换器
 
-基于图片中显示的三星芯片地址映射规律：
+基于新的三星芯片地址映射规律：
 - 每16行为1组
-- 行1-6保持不变
-- 行7-16按照特定的变换规则进行变换
+- 前8行保持不变（相对位置0-7）  
+- 后8行按照位反转规则变换（相对位置8-15）
 
-变换规则分析：
-- 若n是奇数(在7..16内): 7,9,11,13,15，映射是向前加4(模10)
-- 若n是偶数(8,10,12,14,16)，映射是向前加6(模10)，等价于向后减4
+变换规则：
+当第4位为1时，将第2、3位取反，第1位不动
 
-公式: f(n) = 7 + ((n-7) + Δ(n)) mod 10
-其中: Δ(n) = {4, n为奇数; 6, n为偶数}
+具体映射（以400开始的组为例）：
+400-407: 保持不变
+408(8) -> 414, 409(9) -> 415, 410(10) -> 412, 411(11) -> 413
+412(12) -> 410, 413(13) -> 411, 414(14) -> 408, 415(15) -> 409
 
-并且f(1) = 1, ..., f(6) = 6
+二进制位操作（相对位置8-15）：
+8(1000) -> 14(1110)  # 第2、3位取反：10 -> 11
+9(1001) -> 15(1111)  # 第2、3位取反：10 -> 11
+10(1010) -> 12(1100) # 第2、3位取反：01 -> 10
+11(1011) -> 13(1101) # 第2、3位取反：01 -> 10
+12(1100) -> 10(1010) # 第2、3位取反：11 -> 00
+13(1101) -> 11(1011) # 第2、3位取反：11 -> 00
+14(1110) -> 8(1000)  # 第2、3位取反：11 -> 00
+15(1111) -> 9(1001)  # 第2、3位取反：11 -> 00
 
 python samsung_row_transformer.py result/a-hammer/a-hammer_single_side_r0-1000_rc40K.json
 """
@@ -35,18 +44,21 @@ class SamsungRowTransformer:
         """
         对受害者行进行地址变换（物理地址→逻辑地址）
         
-        基于图片分析的三星芯片地址映射规律的反向映射:
-        - 每16行为一组  
-        - 行1-6保持不变
-        - 行7-16按照下面的反向映射表变换:
+        基于新的三星芯片地址映射规律：
+        - 每16行为一组
+        - 前8行保持不变（相对位置0-7）
+        - 后8行按照位反转规则变换（相对位置8-15）
+        - 当第4位为1时，将第2、3位取反，第1位不动
         
-        从图片可以看出正向映射：
-        奇位列 A = [7,9,11,13,15], 循环: 7→11→15→9→13→7
-        偶位列 B = [8,10,12,14,16], 循环: 8→14→10→16→12→8
-        
-        我们需要反向映射（物理→逻辑）:
-        奇位列反向: 11→7, 15→11, 9→15, 13→9, 7→13
-        偶位列反向: 14→8, 10→14, 16→10, 12→16, 8→12
+        具体映射（以相对位置为例）：
+        8(1000) -> 14(1110)  # 第2、3位取反：10 -> 11
+        9(1001) -> 15(1111)  # 第2、3位取反：10 -> 11  
+        10(1010) -> 12(1100) # 第2、3位取反：01 -> 10
+        11(1011) -> 13(1101) # 第2、3位取反：01 -> 10
+        12(1100) -> 10(1010) # 第2、3位取反：11 -> 00 
+        13(1101) -> 11(1011) # 第2、3位取反：11 -> 00
+        14(1110) -> 8(1000)  # 第2、3位取反：11 -> 00
+        15(1111) -> 9(1001)  # 第2、3位取反：11 -> 00
         
         Args:
             row: 物理行号
@@ -62,27 +74,26 @@ class SamsungRowTransformer:
         group_offset = row % 16
         group_base = row - group_offset
         
-        # 行1-6不变 (group_offset 1-6)  
-        if 1 <= group_offset <= 6:
+        # 前8行保持不变（相对位置0-7）
+        if 0 <= group_offset <= 7:
             return row
         
-        # 行7-16按特殊规则变换 (group_offset 7-15, 0代表16)  
-        if group_offset == 0:  # 第16行对应group_offset=0
-            # 根据偶数序列反向循环: 16→10，所以16→10
-            return (row - 16) + 10  # 将第16行映射到同组的第10行
+        # 后8行按位反转规则变换（相对位置8-15）
+        if 8 <= group_offset <= 15:
+            # 当第4位为1时（即相对位置8-15），将第2、3位取反
+            # 提取第1、2、3位
+            bit_0 = group_offset & 1      # 第1位（最低位）
+            bit_1 = (group_offset >> 1) & 1  # 第2位  
+            bit_2 = (group_offset >> 2) & 1  # 第3位
+            bit_3 = (group_offset >> 3) & 1  # 第4位（应该为1）
             
-        if 7 <= group_offset <= 15:
-            # 基于图片分析的精确映射 - 反向映射（物理→逻辑）
-            # 分别处理奇数位置和偶数位置的循环映射
-            if group_offset in [7, 9, 11, 13, 15]:  # 奇数序列
-                # 奇位列反向循环: 11→7, 15→11, 9→15, 13→9, 7→13
-                odd_reverse_mapping = {11: 7, 15: 11, 9: 15, 13: 9, 7: 13}
-                transformed_offset = odd_reverse_mapping[group_offset]
-            else:  # [8, 10, 12, 14] 偶数序列
-                # 偶位列反向循环: 14→8, 10→14, 16→10, 12→16, 8→12  
-                even_reverse_mapping = {14: 8, 10: 14, 16: 10, 12: 16, 8: 12}
-                transformed_offset = even_reverse_mapping[group_offset]
-                
+            # 第2、3位取反，第1位不动，第4位保持为1
+            new_bit_1 = 1 - bit_1  # 取反
+            new_bit_2 = 1 - bit_2  # 取反
+            
+            # 重新组合
+            transformed_offset = (bit_3 << 3) | (new_bit_2 << 2) | (new_bit_1 << 1) | bit_0
+            
             return group_base + transformed_offset
             
         return row  # 默认不变换
@@ -110,10 +121,12 @@ class SamsungRowTransformer:
                     continue
                     
                 if "hammer_row_1" in pair_data and "hammer_row_2" in pair_data:
-                    # 复制攻击者行信息（不需要变换）
+                    # 变换攻击者行信息（同样需要变换）
+                    hammer_row_1 = pair_data["hammer_row_1"]
+                    hammer_row_2 = pair_data["hammer_row_2"]
                     transformed_pair_data = {
-                        "hammer_row_1": pair_data["hammer_row_1"],
-                        "hammer_row_2": pair_data["hammer_row_2"]
+                        "hammer_row_1": self.transform_victim_row(hammer_row_1),
+                        "hammer_row_2": self.transform_victim_row(hammer_row_2)
                     }
                     
                     # 变换受害者行
@@ -212,18 +225,21 @@ def create_simple_test():
     # 显示变换规律说明
     print("变换规律（物理→逻辑）:")
     print("- 每16行为一组")
-    print("- 行1-6保持不变")
-    print("- 行7-16按反向循环映射：")
-    print("  奇数序列反向: 11→7, 15→11, 9→15, 13→9, 7→13")
-    print("  偶数序列反向: 14→8, 10→14, 16→10, 12→16, 8→12")
+    print("- 前8行（相对位置0-7）保持不变")
+    print("- 后8行（相对位置8-15）按位反转规则变换：")
+    print("  当第4位为1时，将第2、3位取反，第1位不动")
     
-    # 测试几个典型例子
-    print("\n示例变换:")
-    test_rows = [1, 7, 8, 11, 12, 15, 16]
-    for row in test_rows:
+    # 测试一个完整的16行组（以400-415为例）
+    print("\n示例变换（行400-415）:")
+    base_row = 400
+    for offset in range(16):
+        row = base_row + offset
         transformed = transformer.transform_victim_row(row)
-        status = "不变" if row == transformed else "变换"
-        print(f"  行{row:2d} -> 行{transformed:2d} ({status})")
+        if row == transformed:
+            status = "不变"
+        else:
+            status = f"变换 ({offset:04b} -> {transformed-base_row:04b})"
+        print(f"  行{row:3d} -> 行{transformed:3d} ({status})")
     
     print("\n✓ 变换器已准备就绪")
 

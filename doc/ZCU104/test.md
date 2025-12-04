@@ -98,7 +98,7 @@
 
 2.HCfirst（发生第一个bit翻转需要的锤击数，能否读到攻击所花费时间，方便与retention比较）
     # 测试单边攻击：(10)
-    python hw_rowhammer.py --row-pairs const --const-rows-pair 10 10 --read_count 5e4 --nrows 8192 --no-refresh --payload-executor 
+    python hw_rowhammer.py --row-pairs const --const-rows-pair 409 411 --read_count 4e4 --nrows 8192 --no-refresh --payload-executor 
 
     # 测试1：使用脚本进行大范围测试 精度100    
     # 结果1：HCfirst = 10000-20000 存在脆弱行
@@ -131,7 +131,7 @@
     # 随机数据 (550 bitflips)
     python hw_rowhammer.py --all-rows --start-row 20 --row-jump 1 --nrows 30 --row-pair-distance 0  --read_count 4e4 --pattern rand_per_row --no-refresh --payload-executor --save datapattern  
     # 绘图
-    python logs2vis.py /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/a-hammer/a-hammer_single_side_r1000-2000_rc40K.json /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/a-hammer/ --aggressors-vs-victims
+    python logs2vis.py /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/a-hammer/a-hammer_single_side_r0-1000_rc40K_samsung_transformed.json /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/a-hammer/ --aggressors-vs-victims
     
     python logs2plot.py /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/datapattern/datapattern_single_side_r20-30_rc40K_pat_rand_per_row.json --aggressors-vs-victims --annotate bitflips --png /home/hc/rowhammer-tester/rowhammer_tester/scripts/result/datapattern/datapattern_single_side_r20-30_rc40K_pat_rand_per_row.png
 
